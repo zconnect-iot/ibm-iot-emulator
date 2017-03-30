@@ -1,0 +1,17 @@
+version: '2.0'
+services:
+    vernemq:
+        build: ./docker-vernemq
+        ports:
+            - "1883:1883"
+        volumes:
+            - "./vernemq/files/config:/etc/vernemq"
+            - "/var/log/vernemq"
+            - "/var/lib/vernemq"
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - ".:/code"
+
