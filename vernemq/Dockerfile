@@ -15,7 +15,8 @@ ADD https://bintray.com/artifact/download/erlio/vernemq/deb/jessie/vernemq_$VERN
 RUN dpkg -i /tmp/vernemq.deb
 RUN rm /tmp/vernemq.deb
 
-ADD files/vm.args /etc/vernemq/vm.args
+ADD files/config/vm.args /etc/vernemq/vm.args
+ADD files/config/vernemq.conf /etc/vernemq/vernemq.conf
 ADD bin/vernemq.sh /usr/sbin/start_vernemq
 ADD bin/rand_cluster_node.escript /var/lib/vernemq/rand_cluster_node.escript
 
@@ -41,7 +42,7 @@ EXPOSE 9100 9101 9102 9103 9104 9105 9106 9107 9108 9109
 # Prometheus Metrics
 EXPOSE 8888
 
-VOLUME ["/var/log/vernemq", "/var/lib/vernemq", "/etc/vernemq:/etc/vernemq"]
+VOLUME ["/var/log/vernemq", "/var/lib/vernemq", "/home/bitdivision/iot/ibm-iot-emulator/vernemq/files/config:/etc/vernemq"]
 
 CMD ["start_vernemq"] 
 
