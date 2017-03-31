@@ -8,10 +8,12 @@ services:
             - "./vernemq/files/config:/etc/vernemq"
             - "/var/log/vernemq"
             - "/var/lib/vernemq"
+        links:
+            - "web:webhooks"
     web:
         build: ./app
         ports:
             - "5000:5000"
         volumes:
-            - "/home/bitdivision/iot/ibm-iot-emulator/app:/code"
+            - "./app:/code"
 
