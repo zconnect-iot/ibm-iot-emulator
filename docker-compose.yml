@@ -10,6 +10,8 @@ services:
             - "/var/lib/vernemq"
         links:
             - "web:webhooks"
+        labels:
+            - "traefik.frontend.rule=HostRegexp:{subdomain:[a-z]+}.messaging.vernemq"
     web:
         build: ./app
         ports:
@@ -17,3 +19,5 @@ services:
         volumes:
             - "./app:/code"
 
+    redis:
+        image: "redis:alpine"

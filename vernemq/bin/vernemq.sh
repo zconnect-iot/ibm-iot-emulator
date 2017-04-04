@@ -65,8 +65,9 @@ pid=$(ps aux | grep '[b]eam.smp' | awk '{print $2}')
 
 # So that tail doesn't throw any errors if it hasn't been created yet
 touch /var/log/vernemq/console.log
+touch /var/log/vernemq/error.log
 
 while true
 do
-    tail -f /var/log/vernemq/console.log & wait ${!}
+    tail -f /var/log/vernemq/console.log -f /var/log/vernemq/error.log & wait ${!}
 done
