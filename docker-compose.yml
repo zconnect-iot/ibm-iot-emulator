@@ -1,23 +1,27 @@
 version: '2.0'
 services:
-    vernemq:
-        build: ./vernemq
-        ports:
-            - "1883:1883"
-        volumes:
-            - "./vernemq/files/config:/etc/vernemq"
-            - "/var/log/vernemq"
-            - "/var/lib/vernemq"
-        links:
-            - "web:webhooks"
-        labels:
-            - "traefik.frontend.rule=HostRegexp:{subdomain:[a-z]+}.messaging.vernemq"
-    web:
-        build: ./app
-        ports:
-            - "5000:5000"
-        volumes:
-            - "./app:/code"
-
-    redis:
-        image: "redis:alpine"
+        vernemq:
+                image: erlio/docker-vernemq
+                volumes:
+                        - "docker-vernemq/vernemq.conf:/etc/vernemq/vernemq.conf"
+                env_file:
+                        - "docker-vernemq/vmq.vars"
+                ports:
+                        - "1883:1883"
+                depends_on:
+                        - mongo
+                        - mongo-setup
+        mongo:
+                image: mongo:latest
+                volumes:
+                        - mongo_data:/data/db
+                ports:
+                        - "27017:27017"
+        mongo-setup:
+                build: ./seed-mongo
+                depends_on:
+                        - mongo
+                environment:
+                        - MONGO_HOST=mongo
+volumes:
+        mongo_data:
