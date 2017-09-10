@@ -1,0 +1,14 @@
+[
+	{
+		"username": "use-token-auth",
+		"client_id": "bob",
+		"mountpoint": "",
+		"passhash": "$2a$04$hCdCecI4eIOM9sXzBOedA.OqywzZngOpacqn4tsPQ9MubcFJnEBVy"
+	},
+	{
+		"username": "use-token-auth",
+		"client_id": "alice",
+		"mountpoint": "",
+		"passhash": "$2a$04$BOYcgGknfgS2yYAxtnXfEu6btv4bG8A1lE4UteDP7dU80TXW.Jmsa"
+	}
+]
