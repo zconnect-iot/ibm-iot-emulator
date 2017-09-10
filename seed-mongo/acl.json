@@ -1,11 +1,13 @@
 [
 	{
+		"__comment": "pass=bob123"
 		"username": "use-token-auth",
 		"client_id": "bob",
 		"mountpoint": "",
 		"passhash": "$2a$04$hCdCecI4eIOM9sXzBOedA.OqywzZngOpacqn4tsPQ9MubcFJnEBVy"
 	},
 	{
+		"__comment": "pass=alice123"
 		"username": "use-token-auth",
 		"client_id": "alice",
 		"mountpoint": "",
