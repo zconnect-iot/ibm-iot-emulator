@@ -3,6 +3,7 @@ import string
 import random
 import json
 import os
+from datetime import datetime
 
 from flask import Flask, request, jsonify
 import paho.mqtt.client as mqtt
@@ -39,6 +40,8 @@ def on_register():
     except InvalidClientId:
         logger.warning("Invalid client id received: %s", client_id)
 
+    enter_handler(request)
+
     return jsonify(response)
 
 
@@ -48,9 +51,10 @@ def on_client_gone():
             "result": "next"
     }
 
-    logger.info("Client Disconnect: %s", request.json['client_id'])
+    logger.info("on_client_gone request.json = %s", str(request.json))
+    logger.info("Client Dropped: %s", request.json['client_id'])
 
-    exit_handler()
+    exit_handler(request, dropped=True)
 
     return jsonify(response)
 
@@ -61,14 +65,15 @@ def on_client_offline():
             "result": "next"
     }
 
+    logger.info("on_client_offline request.json = %s", str(request.json))
     logger.info("Client Disconnect: %s", request.json['client_id'])
 
-    exit_handler()
+    exit_handler(request, dropped=False)
 
     return jsonify(response)
 
 
-def build_connect_status_payload():
+def build_connect_status_payload(_request):
     """
     Build the connect status payload. It seems as though this is optional
     however the following keys are listed in the IBM documentation
@@ -86,10 +91,19 @@ def build_connect_status_payload():
 
     For now, this is empty.
     """
-    return json.dumps({})
+    rq = _request.json
+    return json.dumps({
+        'ClientAddr': rq['peer_addr'],
+        'Protocol': 'mqtt-tcp',
+        'ClientID': rq['client_id'],
+        'User': rq['username'],
+        'Port': rq['peer_port'],
+        'Action': 'Connect',
+        'Time': datetime.utcnow().isoformat(),
+    })
 
 
-def build_disconnect_status_payload():
+def build_disconnect_status_payload(request, dropped):
     """
     Build the disconnect status payload. It seems as though this is optional
     however the following keys are listed in the IBM documentation.
@@ -106,13 +120,23 @@ def build_disconnect_status_payload():
 
     For now, this is empty.
     """
-    return json.dumps({})
+    #  This is not a typo - disconnect status shares all the fields with connect
+    return json.dumps({
+        'Protocol': 'mqtt-tcp',
+        'ClientID': request.json['client_id'],
+        'Action': 'Disconnect',
+        'Time': datetime.utcnow().isoformat(),
+        'Reason': 'Peer disappeared' if dropped else 'Peer disconnected',
+    })
 
 
-def exit_handler():
+def exit_handler(_request, dropped):
     logger.debug("Exit Handler")
 
-    client_id = request.json['client_id']
+    #  request.json = {'peer_port': 52294, 'mountpoint': '', 'username':
+    #  'use-token-auth', 'peer_addr': '172.20.0.1', 'client_id':
+    #  'g:abcdef:fridge:fridge-uuid1'}
+    client_id = _request.json['client_id']
 
     if client_id.startswith('controller'):
         return
@@ -125,7 +149,31 @@ def exit_handler():
 
     topic = "iot-2/type/{}/id/{}/mon".format(device_type, device_id)
 
-    payload = build_disconnect_status_payload()
+    payload = build_disconnect_status_payload(_request, dropped)
+    logger.debug("Publishing MQTT")
+    mqttc.publish(topic, payload)
+
+
+def enter_handler(_request):
+    logger.debug("Enter Handler")
+
+    #  request.json = {'peer_port': 52294, 'mountpoint': '', 'username':
+    #  'use-token-auth', 'peer_addr': '172.20.0.1', 'client_id':
+    #  'g:abcdef:fridge:fridge-uuid1'}
+    client_id = _request.json['client_id']
+
+    if client_id.startswith('controller'):
+        return
+
+    try:
+        org, device_type, device_id = client_id_to_org_type_id(client_id)
+    except InvalidClientId:
+        logger.warning("Invalid Client Id: %s", client_id)
+        return
+
+    topic = "iot-2/type/{}/id/{}/mon".format(device_type, device_id)
+
+    payload = build_connect_status_payload(_request)
     logger.debug("Publishing MQTT")
     mqttc.publish(topic, payload)
 
@@ -156,7 +204,11 @@ def mqtt_connect(client, userdata, flags, rc):
     logger.info("Connected to broker with result: %d", rc)
     if rc == 0:
         # To avoid disconnection, subscribe for something
-        client.susbcribe("$SYS/#")
+        client.subscribe("$SYS/#")
+
+
+def mqtt_message(client, userdata, msg):
+    logger.info(msg.topic+" "+str(msg.payload))
 
 
 if __name__ == "__main__":
@@ -165,15 +217,14 @@ if __name__ == "__main__":
     mqttc.username_pw_set("controller", "controller123")
     mqttc.on_log = mqtt_log
     mqttc.on_connect = mqtt_connect
+    mqttc.on_message = mqtt_message
     # Connect
-    try:
-        mqttc.connect(
-            os.getenv('MQTT_HOST', "localhost"),
-            os.getenv('MQTT_PORT', 1883),
-            60,
-        )
-    except:
-        logger.warning("Could not connect to vernemq")
+    mqtt_host = os.getenv('MQTT_HOST', "localhost")
+    mqtt_port = int(os.getenv('MQTT_PORT', 1883))
+    logger.debug("Connecting to MQTT {} on port {}".format(
+        mqtt_host, mqtt_port
+    ))
+    mqttc.connect_async(mqtt_host, mqtt_port, 60)
     mqttc.loop_start()
     app.run(
         host=os.getenv('HOOK_HOST', '0.0.0.0'),
