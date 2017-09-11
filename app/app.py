@@ -42,27 +42,6 @@ def on_register():
     return jsonify(response)
 
 
-@app.route('/auth_on_publish', methods=['POST'])
-def auth_on_publish():
-    response = {
-            "result": "ok"
-    }
-    logger.debug("Auth on publish")
-
-    return jsonify(response)
-
-
-@app.route('/auth_on_subscribe', methods=['POST'])
-def auth_on_subscribe():
-    response = {
-            "result": "ok",
-            "topics": request.json['topics']
-    }
-    logger.debug("Auth on susbcribe")
-
-    return jsonify(response)
-
-
 @app.route('/on_client_gone', methods=['POST'])
 def on_client_gone():
     response = {
