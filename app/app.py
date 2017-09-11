@@ -175,4 +175,8 @@ if __name__ == "__main__":
     except:
         logger.warning("Could not connect to vernemq")
     mqttc.loop_start()
-    app.run(debug=True)
+    app.run(
+        host=os.getenv('HOOK_HOST', '0.0.0.0'),
+        port=int(os.getenv('HOOK_PORT', 5000)),
+        debug=True,
+    )
