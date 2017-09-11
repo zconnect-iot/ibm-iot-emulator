@@ -1,16 +1,23 @@
 [
 	{
-		"__comment": "pass=bob123"
+		"__comment": "pass=bob123",
 		"username": "use-token-auth",
 		"client_id": "bob",
 		"mountpoint": "",
 		"passhash": "$2a$04$hCdCecI4eIOM9sXzBOedA.OqywzZngOpacqn4tsPQ9MubcFJnEBVy"
 	},
 	{
-		"__comment": "pass=alice123"
+		"__comment": "pass=alice123",
 		"username": "use-token-auth",
 		"client_id": "alice",
 		"mountpoint": "",
 		"passhash": "$2a$04$BOYcgGknfgS2yYAxtnXfEu6btv4bG8A1lE4UteDP7dU80TXW.Jmsa"
+	},
+	{
+		"__comment": "pass=controller123",
+		"username": "controller",
+		"client_id": "controller",
+		"mountpoint": "",
+		"passhash": "$2a$12$Z2sHJtX5pe82J8MRDknGke1KZ7v0HhIKpisVLj2W/murH8LqSWhnq"
 	}
 ]
