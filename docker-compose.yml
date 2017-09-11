@@ -3,9 +3,9 @@ services:
         vernemq:
                 image: erlio/docker-vernemq
                 volumes:
-                        - "docker-vernemq/vernemq.conf:/etc/vernemq/vernemq.conf"
+                        - "./docker-vernemq/vernemq.conf:/etc/vernemq/vernemq.conf"
                 env_file:
-                        - "docker-vernemq/vmq.vars"
+                        - "./docker-vernemq/vmq.vars"
                 ports:
                         - "1883:1883"
                 depends_on:
@@ -23,5 +23,9 @@ services:
                         - mongo
                 environment:
                         - MONGO_HOST=mongo
+        hooks:
+                build: ./app
+                depends_on:
+                        - vernemq
 volumes:
         mongo_data:
