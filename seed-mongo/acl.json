@@ -19,5 +19,19 @@
 		"client_id": "controller",
 		"mountpoint": "",
 		"passhash": "$2a$12$Z2sHJtX5pe82J8MRDknGke1KZ7v0HhIKpisVLj2W/murH8LqSWhnq"
+	},
+	{
+		"__comment": "pass=alice123",
+		"username": "use-token-auth",
+		"client_id": "g:abcdef:fridge:fridge-uuid1",
+		"mountpoint": "",
+		"passhash": "$2a$04$BOYcgGknfgS2yYAxtnXfEu6btv4bG8A1lE4UteDP7dU80TXW.Jmsa"
+	},
+	{
+		"__comment": "pass=alice123",
+		"username": "use-token-auth",
+		"client_id": "g:abcdef:fridge:fridge-uuid2",
+		"mountpoint": "",
+		"passhash": "$2a$04$BOYcgGknfgS2yYAxtnXfEu6btv4bG8A1lE4UteDP7dU80TXW.Jmsa"
 	}
 ]
