@@ -18,7 +18,7 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 client.username_pw_set("use-token-auth", (sys.argv[2] if len(sys.argv) > 2 else "bob123"))
-client.connect("localhost", 1883, 60)
+client.connect("qwerty123.messaging.localhost", 80, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
