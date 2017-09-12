@@ -224,10 +224,10 @@ if __name__ == "__main__":
     logger.debug("Connecting to MQTT {} on port {}".format(
         mqtt_host, mqtt_port
     ))
-    mqttc.connect_async(mqtt_host, mqtt_port, 60)
     mqttc.loop_start()
+    mqttc.connect_async(mqtt_host, mqtt_port, 60)
     app.run(
         host=os.getenv('HOOK_HOST', '0.0.0.0'),
         port=int(os.getenv('HOOK_PORT', 5000)),
-        debug=True,
+        debug=False,
     )
