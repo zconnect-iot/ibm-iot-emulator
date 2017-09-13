@@ -2,9 +2,8 @@ version: '2.0'
 services:
         proxy:
                 image: traefik
-                command: -c /dev/null --web --docker --docker.domain=messaging.localhost --logLevel=DEBUG
+                command: -c /dev/null --entryPoints="Name:ws Address::8080" --docker --docker.domain=messaging.localhost --docker.enabledByDefault=false --logLevel=DEBUG
                 ports:
-                        - "80:80"
                         - "8080:8080"
                 volumes:
                         - "/var/run/docker.sock:/var/run/docker.sock"
@@ -16,30 +15,28 @@ services:
                         - "./docker-vernemq/vmq.vars"
                 ports:
                         - "1883"
+                        - "8080"
                 depends_on:
                         - mongo
                         - mongo-setup
                 labels:
                         - "traefik.backend=vernemq"
-                        - "traefik.frontend.rule=HostRegexp:{subdomain:[0-9a-z]+}.messaging.localhost"
+                        - "traefik.frontend.rule=Host:qwerty123.messaging.localhost"
+                        - "traefik.frontend.entryPoints=ws"
                         - "traefik.enable=true"
-                        - "traefik.port=1883"
+                        - "traefik.port=8080"
         mongo:
                 image: mongo:latest
                 volumes:
                         - mongo_data:/data/db
                 ports:
                         - "27017"
-                labels:
-                        - "traefik.enable=false"
         mongo-setup:
                 build: ./seed-mongo
                 depends_on:
                         - mongo
                 environment:
                         - MONGO_HOST=mongo
-                labels:
-                        - "traefik.enable=false"
         hooks:
                 build: ./app
                 depends_on:

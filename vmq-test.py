@@ -15,12 +15,15 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
 
-client = mqtt.Client(client_id=(sys.argv[1] if len(sys.argv) > 2 else "bob"))
+client = mqtt.Client(
+    transport="websockets",
+    client_id=(sys.argv[1] if len(sys.argv) > 2 else "bob")
+)
 client.on_connect = on_connect
 client.on_message = on_message
 
 client.username_pw_set("use-token-auth", (sys.argv[2] if len(sys.argv) > 2 else "bob123"))
-client.connect("qwerty123.messaging.localhost", 80, 60)
+client.connect("qwerty123.messaging.localhost", 8080, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
