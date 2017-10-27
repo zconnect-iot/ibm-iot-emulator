@@ -26,7 +26,7 @@ spec:
         ports:
         - containerPort: 1883
           name: mqtt
-        - containerPort: 8080
+        - containerPort: 80
           name: websock
 
         envFrom:
