@@ -12,8 +12,10 @@ spec:
   ports:
   - port: 1883
     targetPort: 1883
-    name: http
-    protocol: TCP
+    name: mqtt
+  - port: 8080
+    targetPort: 90
+    name: websock
   selector:
     app: {{ template "name" . }}-vernemq
     component: {{ .Values.service.name }}

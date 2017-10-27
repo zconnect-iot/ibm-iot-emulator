@@ -5,9 +5,9 @@ deployment:
   replicas: 1
 
   broker:
-    image: erlio/docker-vernemq
+    image: erlio/docker-vernemq:1.2.0
   webhooks:
-    image: mockson-webooks
+    image: eu.gcr.io/zconnect-demos/mockson-webhooks:latest
 
 
 # ConfigMap - each value is set as an environment variable in every container
