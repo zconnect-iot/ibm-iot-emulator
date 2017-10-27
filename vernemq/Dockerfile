@@ -41,7 +41,7 @@ COPY --from=builder /usr/lib/vernemq/erts-8.2/lib/ /usr/lib/vernemq/erts-8.2/lib
 
 RUN apk update \
     && apk add --no-cache --virtual .fetch-deps \
-        curl grep openssl logrotate \
+        grep openssl logrotate \
     && rm -rf /var/cache/apk/*
 
 # MQTT
