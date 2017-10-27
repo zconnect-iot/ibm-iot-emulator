@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}-vernemq
+  labels:
+    app: {{ template "name" . }}-vernemq
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  # managed by autoscaler
+  replicas: {{ .Values.deployment.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}-vernemq
+        heritage: {{ .Release.Service }}
+        release: {{ .Release.Name }}
+      annotations:
+        checksum/config: {{ print .Values.global_config | sha256sum }}
+    spec:
+      containers:
+      - name: {{ template "name" . }}-broker
+        image: {{ .Values.deployment.broker.image }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-{{ .Values.global_config.name }}
+
+      - name: {{ template "name" . }}-webhooks
+        image: {{ .Values.deployment.webhooks.image }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-{{ .Values.global_config.name }}

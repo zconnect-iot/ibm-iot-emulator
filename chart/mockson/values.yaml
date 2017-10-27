@@ -1,0 +1,25 @@
+service:
+  name: broker
+
+deployment:
+  replicas: 1
+
+  broker:
+    image: erlio/docker-vernemq
+  webhooks:
+    image: mockson-webooks
+
+
+# ConfigMap - each value is set as an environment variable in every container
+global_config:
+  name: exampleconfig
+  data:
+    GET_HOSTS_FROM: dns
+
+    # used by erland pod only
+    WAIT_FOR_ERLANG: 600
+
+    # Used by broker pod only
+    MQTT_HOST: vernemq
+    MQTT_PORT: 1883
+    HOOK_PORT: 5000
