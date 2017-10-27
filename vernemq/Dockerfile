@@ -43,7 +43,6 @@ EXPOSE 8080
 # Prometheus Metrics
 #EXPOSE 8888
 
-VOLUME ["/var/log/vernemq", "/var/lib/vernemq", "./files/config:/etc/vernemq"]
+VOLUME ["/var/log/vernemq", "/var/lib/vernemq", "/etc/vernemq"]
 
 CMD ["start_vernemq"] 
-
