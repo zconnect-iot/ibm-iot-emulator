@@ -29,22 +29,23 @@ FROM alpine:latest
 COPY --from=builder /usr/sbin/vmq-admin     /usr/sbin/vmq-admin
 COPY --from=builder /usr/sbin/vmq-passwd    /usr/sbin/vmq-passwd
 COPY --from=builder /usr/sbin/vernemq       /usr/sbin/vernemq
-#COPY --from=builder /usr/sbin/start_vernemq /usr/sbin/start_vernemq
+COPY --from=builder /usr/share/             /usr/share/
+COPY --from=builder /var/lib/vernemq        /var/lib/vernemq
+COPY --from=builder /etc/vernemq/ /etc/vernemq/
 
+#COPY --from=builder /usr/lib/vernemq/ /usr/lib/vernemq/
 COPY --from=builder /usr/lib/vernemq/lib/ /usr/lib/vernemq/lib/
 COPY --from=builder /usr/lib/vernemq/releases/ /usr/lib/vernemq/releases/
-COPY --from=builder /usr/lib/vernemq/erts-8.2/ /usr/lib/vernemq/erts-8.2/
-COPY --from=builder /etc/vernemq/ /etc/vernemq/
+COPY --from=builder /usr/lib/vernemq/erts-8.2/bin/ /usr/lib/vernemq/erts-8.2/bin/
+COPY --from=builder /usr/lib/vernemq/erts-8.2/lib/ /usr/lib/vernemq/erts-8.2/lib/
 
 RUN apk update \
     && apk add --no-cache --virtual .fetch-deps \
-        grep bash openssl logrotate \
+        curl grep openssl logrotate \
     && rm -rf /var/cache/apk/*
 
-ADD bin/vernemq.sh /usr/sbin/start_vernemq
-
 # MQTT
-EXPOSE 1883 
+EXPOSE 1883
 
 # MQTT/SSL
 EXPOSE 8883
@@ -57,8 +58,8 @@ EXPOSE 8080
 
 # EPMD - Erlang Port Mapper Daemon
 #EXPOSE 4369
-    
-# Specific Distributed Erlang Port Range 
+
+# Specific Distributed Erlang Port Range
 #EXPOSE 9100 9101 9102 9103 9104 9105 9106 9107 9108 9109
 
 # Prometheus Metrics
@@ -69,4 +70,7 @@ VOLUME ["/var/log/vernemq", "/var/lib/vernemq", "/etc/vernemq"]
 RUN addgroup -S vernemq
 RUN adduser -S -D -g '' vernemq -G vernemq
 
-CMD ["start_vernemq"] 
+#COPY --from=builder /usr/sbin/start_vernemq /usr/sbin/start_vernemq
+ADD bin/vernemq.sh /usr/sbin/start_vernemq
+
+CMD ["start_vernemq"]
