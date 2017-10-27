@@ -66,6 +66,7 @@ EXPOSE 8080
 
 VOLUME ["/var/log/vernemq", "/var/lib/vernemq", "/etc/vernemq"]
 
-RUN adduser -S -D -g '' vernemq
+RUN addgroup -S vernemq
+RUN adduser -S -D -g '' vernemq -G vernemq
 
 CMD ["start_vernemq"] 
