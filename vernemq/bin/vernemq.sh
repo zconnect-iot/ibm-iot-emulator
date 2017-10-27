@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 IP_ADDRESS=$(ip -4 addr show eth0 | grep -oP "(?<=inet).*(?=/)"| sed -e "s/^[[:space:]]*//" | tail -n 1)
 
