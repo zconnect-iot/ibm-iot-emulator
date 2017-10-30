@@ -13,6 +13,7 @@ deployment:
 # ConfigMap - each value is set as an environment variable in every container
 global_config:
   name: exampleconfig
+  create: true
   data:
     GET_HOSTS_FROM: dns
 
