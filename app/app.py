@@ -223,7 +223,7 @@ if __name__ == "__main__":
     # Connect
     mqtt_host = os.getenv('MQTT_HOST', "localhost")
     mqtt_port = int(os.getenv('MQTT_PORT', 1883))
-    logger.INFO("Connecting to MQTT {} on port {}".format(
+    logger.info("Connecting to MQTT {} on port {}".format(
         mqtt_host, mqtt_port
     ))
     mqttc.loop_start()
