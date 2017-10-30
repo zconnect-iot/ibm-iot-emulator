@@ -33,6 +33,19 @@
 		]
 	},
 	{
+		"__comment": "pass=controller123",
+		"username": "a-abcdef-test",
+		"client_id": "A:abcdef:test_id",
+		"mountpoint": "",
+		"passhash": "$2a$12$Z2sHJtX5pe82J8MRDknGke1KZ7v0HhIKpisVLj2W/murH8LqSWhnq",
+		"publish_acl": [
+			{"pattern": "#"}
+		],
+		"subscribe_acl": [
+			{"pattern": "#"}
+		]
+	},
+	{
 		"__comment": "pass=alice123",
 		"username": "use-token-auth",
 		"client_id": "g:abcdef:fridge:fridge-uuid1",
