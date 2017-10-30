@@ -196,10 +196,6 @@ def client_id_to_org_type_id(client_id):
     return (org, device_type, device_id)
 
 
-def mqtt_log(client, userdata, level, buf):
-    logger.info("MQTT: %s", buf)
-
-
 def mqtt_connect(client, userdata, flags, rc):
     logger.info("Connected to broker with result: %d", rc)
     if rc == 0:
@@ -207,12 +203,18 @@ def mqtt_connect(client, userdata, flags, rc):
         client.subscribe("$SYS/#")
 
 
+def mqtt_log(client, userdata, level, buf):
+    return
+    logger.debug("MQTT: %s", buf)
+
+
 def mqtt_message(client, userdata, msg):
-    logger.info(msg.topic+" "+str(msg.payload))
+    return
+    logger.debug(msg.topic+" "+str(msg.payload))
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
 
     mqttc.username_pw_set("controller", "controller123")
     mqttc.on_log = mqtt_log
@@ -221,7 +223,7 @@ if __name__ == "__main__":
     # Connect
     mqtt_host = os.getenv('MQTT_HOST', "localhost")
     mqtt_port = int(os.getenv('MQTT_PORT', 1883))
-    logger.debug("Connecting to MQTT {} on port {}".format(
+    logger.INFO("Connecting to MQTT {} on port {}".format(
         mqtt_host, mqtt_port
     ))
     mqttc.loop_start()
