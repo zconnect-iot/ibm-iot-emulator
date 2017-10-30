@@ -77,6 +77,32 @@
         "subscribe_acl": [
             {"pattern": "#"}
         ]
+    },
+    {
+        "__comment": "pass=controller123",
+        "username": "a-abcdef-test",
+        "client_id": "A:abcdef:test_id",
+        "mountpoint": "",
+		"passhash": "$2a$12$Z2sHJtX5pe82J8MRDknGke1KZ7v0HhIKpisVLj2W/murH8LqSWhnq",
+        "publish_acl": [
+            {"pattern": "#"}
+        ],
+        "subscribe_acl": [
+            {"pattern": "#"}
+        ]
+    },
+    {
+        "__comment": "pass=alice123",
+        "username": "use-token-auth",
+        "client_id": "g:abcdef:observable:599ed35d42d23c29bee30394",
+        "mountpoint": "",
+        "passhash": "$2a$04$BOYcgGknfgS2yYAxtnXfEu6btv4bG8A1lE4UteDP7dU80TXW.Jmsa",
+        "publish_acl": [
+            {"pattern": "iot-2/#"}
+        ],
+        "subscribe_acl": [
+            {"pattern": "#"}
+        ]
     }
 
 ]
