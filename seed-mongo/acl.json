@@ -107,7 +107,7 @@
     {
         "__comment": "pass=alice123",
         "username": "use-token-auth",
-        "client_id": "g:abcdef:observable:599ed35d42d23c29bee30396",
+        "client_id": "g:abcdef:observable:599ed35d42d23c29bee30395",
         "mountpoint": "",
         "passhash": "$2a$04$BOYcgGknfgS2yYAxtnXfEu6btv4bG8A1lE4UteDP7dU80TXW.Jmsa",
         "publish_acl": [
