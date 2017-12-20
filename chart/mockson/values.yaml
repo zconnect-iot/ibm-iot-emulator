@@ -3,7 +3,7 @@ STUPID_NO_TLS: true
 ingress:
   host_backend: mqtt.zoetrope.io
   paths:
-    - /
+    - /mqtt
 
 service:
   name: broker
