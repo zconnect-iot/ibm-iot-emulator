@@ -22,5 +22,5 @@ global_config:
 
     # Used by broker pod only
     MQTT_HOST: vernemq
-    MQTT_PORT: 1883
+    MQTT_PORT: 8080
     HOOK_PORT: 5000
