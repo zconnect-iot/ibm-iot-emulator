@@ -45,3 +45,6 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-{{ .Values.global_config.name }}
+        env:
+        - name: MONGO_HOST
+          value: {{ .Release.Name }}-mongodb
