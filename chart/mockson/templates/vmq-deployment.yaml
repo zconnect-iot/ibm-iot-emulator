@@ -26,7 +26,7 @@ spec:
         ports:
         - containerPort: 1883
           name: mqtt
-        - containerPort: 80
+        - containerPort: 8080
           name: websock
 
         envFrom:
@@ -35,6 +35,13 @@ spec:
 
       - name: {{ template "name" . }}-webhooks
         image: {{ .Values.deployment.webhooks.image }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-{{ .Values.global_config.name }}
+
+      initContainers:
+      - name: {{ template "name" . }}-seed
+        image: {{ .Values.deployment.seed.image }}
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-{{ .Values.global_config.name }}

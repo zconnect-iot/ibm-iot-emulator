@@ -1,3 +1,4 @@
+---
 service:
   name: broker
 
@@ -7,7 +8,9 @@ deployment:
   broker:
     image: erlio/docker-vernemq:1.2.0
   webhooks:
-    image: eu.gcr.io/zconnect-demos/mockson-webhooks:latest
+    image: 871947736413.dkr.ecr.eu-west-2.amazonaws.com/mockson-webhooks:latest
+  seed:
+    image: 871947736413.dkr.ecr.eu-west-2.amazonaws.com/mockson-seed:latest
 
 
 # ConfigMap - each value is set as an environment variable in every container
