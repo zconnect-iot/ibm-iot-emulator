@@ -42,9 +42,21 @@ spec:
       initContainers:
       - name: {{ template "name" . }}-seed
         image: {{ .Values.deployment.seed.image }}
-        envFrom:
-        - configMapRef:
-            name: {{ .Release.Name }}-{{ .Values.global_config.name }}
-        env:
-        - name: MONGO_HOST
-          value: {{ .Release.Name }}-mongodb
+        command:
+        - mongo
+        - --host
+        - mongodb://{{ .Release.Name }}-mongodb
+        - --eval
+        - 'db = db.getSiblingDB("vernemq"); db.vmq_acl_auth.drop();'
+        - mongoimport
+        - --host
+        - mongodb://{{ .Release.Name }}-mongodb
+        - --collection
+        - vmq_acl_auth
+        - --db
+        - vernemq
+        - --type
+        - json
+        - --file
+        - /acl.json
+        - --jsonArray
