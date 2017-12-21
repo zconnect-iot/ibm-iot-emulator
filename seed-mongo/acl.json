@@ -135,7 +135,7 @@
         "username": "use-token-auth",
         "client_id": "g:veejb5:novo-gateway:576127cb94149d536f8e6a93",
         "mountpoint": "",
-        "passhash": "$2b$12$bFRypF7ubQmIROHb/5L.R.mRbYJC8b9.k0HiCZefku1E.HUElvexa",
+        "passhash": "$2a$12$L4S/DpL5aZyN4EihiYuopu.HXnHLH.y6BU0r4AWQzYnNok3KohiKi",
         "publish_acl": [
             {"pattern": "iot-2/#"}
         ],
