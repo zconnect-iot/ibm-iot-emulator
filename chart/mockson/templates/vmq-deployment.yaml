@@ -19,6 +19,7 @@ spec:
         release: {{ .Release.Name }}
       annotations:
         checksum/config: {{ print .Values.global_config | sha256sum }}
+        checksum/all: {{ print .Values | sha256sum }}
     spec:
       containers:
       - name: {{ template "name" . }}-broker
@@ -33,6 +34,10 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-{{ .Values.global_config.name }}
+
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/vernemq
 
       - name: {{ template "name" . }}-webhooks
         image: {{ .Values.deployment.webhooks.image }}
@@ -64,3 +69,8 @@ spec:
         - --file
         - /acl.json
         - --jsonArray
+
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Release.Name }}-broker-config
