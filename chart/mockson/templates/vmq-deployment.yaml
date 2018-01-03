@@ -38,6 +38,8 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /etc/vernemq
+        - name: varlog
+          mountPath: /var/log/vernemq
 
       - name: {{ template "name" . }}-webhooks
         image: {{ .Values.deployment.webhooks.image }}
@@ -74,3 +76,5 @@ spec:
       - name: config-volume
         configMap:
           name: {{ .Release.Name }}-broker-config
+      - name: varlog
+        emptyDir: {}
