@@ -8,4 +8,30 @@ metadata:
     release: {{ .Release.Name }}
   name: {{ .Release.Name }}-broker-config
 data:
- vernemq.conf: {{ toYaml .Values.deployment.broker.config | indent 2 }}
+  # vernemq.conf: {{ toYaml .Values.deployment.broker.config | indent 2 }}
+  vernemq.conf: |
+    listener.ws.default = 127.0.0.1:8080
+
+    # Turn off password auth
+    plugins.vmq_passwd = off
+    plugins.vmq_acl = off
+
+    # Enable webhooks
+    plugins.vmq_webhooks = on
+
+    # Use mongodb for auth
+    vmq_diversity.auth_mongodb.enabled = on
+    vmq_diversity.mongodb.host = {{ .Release.Name }}-mongodb
+    vmq_diversity.mongodb.port = 27017
+    vmq_diversity.mongodb.database = vernemq
+
+    log.console.level = debug
+
+    # the hooks
+    vmq_webhooks.on_register.hook = on_register
+    vmq_webhooks.on_client_gone.hook = on_client_gone
+    vmq_webhooks.on_client_offline.hook = on_client_offline
+
+    vmq_webhooks.on_register.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_register
+    vmq_webhooks.on_client_offline.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_offline
+    vmq_webhooks.on_client_gone.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_gone
