@@ -11,13 +11,11 @@ data:
   # vernemq.conf: {{ toYaml .Values.deployment.broker.config | indent 2 }}
   vernemq.conf: |
     listener.ws.default = 127.0.0.1:8080
+    listener.tcp.default = 127.0.0.1:1883
 
     # Turn off password auth
     plugins.vmq_passwd = off
     plugins.vmq_acl = off
-
-    # Enable webhooks
-    plugins.vmq_webhooks = on
 
     # Use mongodb for auth
     vmq_diversity.auth_mongodb.enabled = on
@@ -26,6 +24,9 @@ data:
     vmq_diversity.mongodb.database = vernemq
 
     log.console.level = debug
+
+    # Enable webhooks
+    plugins.vmq_webhooks = on
 
     # the hooks
     vmq_webhooks.on_register.hook = on_register
