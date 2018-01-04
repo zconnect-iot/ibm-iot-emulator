@@ -47,7 +47,7 @@ data:
     -env ERL_MAX_PORTS 65536
     +A 64
     -setcookie vmq
-    -name VerneMQ@vernemq
+    -name VerneMQ@{{ .Release.Name }}-vernemq
     +K true
     +W w
     -smp enable
