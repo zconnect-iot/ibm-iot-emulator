@@ -8,7 +8,6 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
-  # managed by autoscaler
   replicas: {{ .Values.deployment.replicas }}
   template:
     metadata:
