@@ -18,6 +18,7 @@ data:
     plugins.vmq_acl = off
 
     # Use mongodb for auth
+    plugins.vmq_diversity = on
     vmq_diversity.auth_mongodb.enabled = on
     vmq_diversity.mongodb.host = {{ .Release.Name }}-mongodb
     vmq_diversity.mongodb.port = 27017
