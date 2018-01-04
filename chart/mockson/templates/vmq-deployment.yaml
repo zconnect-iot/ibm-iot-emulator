@@ -18,7 +18,7 @@ spec:
         release: {{ .Release.Name }}
       annotations:
         checksum/config: {{ print .Values.global_config | sha256sum }}
-        checksum/all: {{ print .Values | sha256sum }}
+        checksum/all: {{ print .Values.deployment | sha256sum }}
     spec:
       containers:
       - name: {{ template "name" . }}-broker
