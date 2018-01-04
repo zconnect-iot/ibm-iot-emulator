@@ -12,7 +12,7 @@ def _getdef(arg, default):
 user = _getdef(1, "use-token-auth")
 pw = _getdef(2, "-ankVuPqceD(LBd0Zc")
 sub = _getdef(3, "$SYS/#")
-client_id = _getdef(4, None)
+client_id = _getdef(4, "g:veejb5:novo-gateway:576127cb94149d536f8e6a93")
 
 host = "mqtt.zoetrope.local"
 port = 80
