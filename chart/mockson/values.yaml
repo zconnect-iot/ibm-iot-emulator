@@ -1,3 +1,10 @@
+---
+STUPID_NO_TLS: true
+ingress:
+  host_backend: mqtt.zoetrope.local
+  paths:
+    - /mqtt
+
 service:
   name: broker
 
@@ -6,8 +13,39 @@ deployment:
 
   broker:
     image: erlio/docker-vernemq:1.2.0
+    # FIXME
+    # Moved to configmap - requires knowing the deployment name
+    # config: |
+    #   listener.ws.default = 127.0.0.1:8080
+
+    #   # Turn off password auth
+    #   plugins.vmq_passwd = off
+    #   plugins.vmq_acl = off
+
+    #   # Enable webhooks
+    #   plugins.vmq_webhooks = on
+
+    #   # Use mongodb for auth
+    #   vmq_diversity.auth_mongodb.enabled = on
+    #   vmq_diversity.mongodb.host = solitary-dingo-mongodb
+    #   vmq_diversity.mongodb.port = 27017
+    #   vmq_diversity.mongodb.database = vernemq
+
+    #   log.console.level = debug
+
+    #   # the hooks
+    #   vmq_webhooks.on_register.hook = on_register
+    #   vmq_webhooks.on_client_gone.hook = on_client_gone
+    #   vmq_webhooks.on_client_offline.hook = on_client_offline
+
+    #   vmq_webhooks.on_register.endpoint = http://solitary-dingo-webhooks:5000/on_register
+    #   vmq_webhooks.on_client_offline.endpoint = http://solitary-dingo-webhooks:5000/on_client_offline
+    #   vmq_webhooks.on_client_gone.endpoint = http://solitary-dingo-webhooks:5000/on_client_gone
+
   webhooks:
-    image: eu.gcr.io/zconnect-demos/mockson-webhooks:latest
+    image: 871947736413.dkr.ecr.eu-west-2.amazonaws.com/mockson-webhooks:latest
+  seed:
+    image: 871947736413.dkr.ecr.eu-west-2.amazonaws.com/mockson-seed:0.1.2
 
 
 # ConfigMap - each value is set as an environment variable in every container
@@ -22,5 +60,10 @@ global_config:
 
     # Used by broker pod only
     MQTT_HOST: vernemq
-    MQTT_PORT: 1883
+    MQTT_PORT: 8080
     HOOK_PORT: 5000
+
+
+mongodb:
+  persistence:
+    enabled: false

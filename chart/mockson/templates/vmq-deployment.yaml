@@ -8,16 +8,17 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
-  # managed by autoscaler
   replicas: {{ .Values.deployment.replicas }}
   template:
     metadata:
       labels:
         app: {{ template "name" . }}-vernemq
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
         heritage: {{ .Release.Service }}
         release: {{ .Release.Name }}
       annotations:
         checksum/config: {{ print .Values.global_config | sha256sum }}
+        checksum/all: {{ print .Values.deployment | sha256sum }}
     spec:
       containers:
       - name: {{ template "name" . }}-broker
@@ -26,15 +27,53 @@ spec:
         ports:
         - containerPort: 1883
           name: mqtt
-        - containerPort: 80
+        - containerPort: 8080
           name: websock
 
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-{{ .Values.global_config.name }}
 
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/vernemq
+        - name: varlog
+          mountPath: /var/log/vernemq
+
       - name: {{ template "name" . }}-webhooks
         image: {{ .Values.deployment.webhooks.image }}
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-{{ .Values.global_config.name }}
+
+      initContainers:
+      - name: {{ template "name" . }}-drop
+        image: {{ .Values.deployment.seed.image }}
+        command:
+        - mongo
+        - --host
+        - {{ .Release.Name }}-mongodb
+        - --eval
+        - 'db = db.getSiblingDB("vernemq"); db.vmq_acl_auth.drop();'
+      - name: {{ template "name" . }}-seed
+        image: {{ .Values.deployment.seed.image }}
+        command:
+        - mongoimport
+        - --host
+        - {{ .Release.Name }}-mongodb
+        - --collection
+        - vmq_acl_auth
+        - --db
+        - vernemq
+        - --type
+        - json
+        - --file
+        - /acl.json
+        - --jsonArray
+
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Release.Name }}-broker-config
+      - name: varlog
+        emptyDir: {}

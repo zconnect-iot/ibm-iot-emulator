@@ -67,3 +67,15 @@ Stage 2
 - Basic API for management of devices / authentication 
 
 
+# Testing with minikube
+
+1. install minikube and helm
+2. `minikube start`
+3. `minikube addons enable ingress`
+5. `./buildall.sh`
+4. `eval $(minikube docker-env)`
+5. `./buildall.sh` (shouldn't need to run twice but minikube is a bit weird and flaky with images sometimes)
+4. `helm init`
+5. `helm install charts/mockson`
+6. run `minikube ip` and edit /etc/hosts so that `mqtt.zoetrope.local` points to that IP address
+7. run `vmq-test.py`

@@ -10,6 +10,9 @@ metadata:
     release: {{ .Release.Name }}
 spec:
   ports:
+  - port: 80
+    targetPort: 8080
+    name: websock
   - port: 1883
     targetPort: 1883
     name: mqtt
@@ -18,7 +21,7 @@ spec:
   #   name: websock
   selector:
     app: {{ template "name" . }}-vernemq
-    component: {{ .Values.service.name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   type: NodePort

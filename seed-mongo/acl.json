@@ -129,6 +129,19 @@
         "subscribe_acl": [
             {"pattern": "#"}
         ]
+    },
+    {
+        "__comment": "pass=-ankVuPqceD(LBd0Zc",
+        "username": "use-token-auth",
+        "client_id": "g:veejb5:novo-gateway:576127cb94149d536f8e6a93",
+        "mountpoint": "",
+        "passhash": "$2a$12$L4S/DpL5aZyN4EihiYuopu.HXnHLH.y6BU0r4AWQzYnNok3KohiKi",
+        "publish_acl": [
+            {"pattern": "iot-2/#"}
+        ],
+        "subscribe_acl": [
+            {"pattern": "#"}
+        ]
     }
 
 
