@@ -9,10 +9,19 @@ service:
   name: broker
 
 deployment:
-  replicas: 1
+  replicas: 2
 
   broker:
     image: erlio/docker-vernemq:1.2.0
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 500Mi
+      requests:
+        cpu: 50m
+        memory: 500Mi
+
     # FIXME
     # Moved to configmap - requires knowing the deployment name
     # config: |
@@ -44,6 +53,15 @@ deployment:
 
   webhooks:
     image: eu.gcr.io/overlock-192311/mockson-webhooks:0.2.0
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+
   seed:
     image: eu.gcr.io/overlock-192311/mockson-seed:0.2.0
 
