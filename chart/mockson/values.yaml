@@ -63,6 +63,7 @@ deployment:
         memory: 100Mi
 
   seed:
+    enabled: false
     image: eu.gcr.io/overlock-192311/mockson-seed:0.2.0
 
 

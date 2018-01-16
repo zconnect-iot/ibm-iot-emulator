@@ -58,6 +58,7 @@ spec:
         resources:
 {{ toYaml .Values.deployment.webhooks.resources | indent 10 }}
 
+{{- if .Values.deployment.seed.enabled }}
       initContainers:
       - name: {{ template "name" . }}-drop
         image: {{ .Values.deployment.seed.image }}
@@ -82,6 +83,7 @@ spec:
         - --file
         - /acl.json
         - --jsonArray
+{{- end }}
 
       volumes:
       - name: config-volume
