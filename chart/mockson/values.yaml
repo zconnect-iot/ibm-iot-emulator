@@ -17,10 +17,10 @@ deployment:
     resources:
       limits:
         cpu: 100m
-        memory: 500Mi
+        memory: 400Mi
       requests:
-        cpu: 50m
-        memory: 500Mi
+        cpu: 25m
+        memory: 400Mi
 
     # FIXME
     # Moved to configmap - requires knowing the deployment name
@@ -59,7 +59,7 @@ deployment:
         cpu: 100m
         memory: 200Mi
       requests:
-        cpu: 50m
+        cpu: 25m
         memory: 100Mi
 
   seed:
@@ -85,3 +85,11 @@ global_config:
 mongodb:
   persistence:
     enabled: false
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 500Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
