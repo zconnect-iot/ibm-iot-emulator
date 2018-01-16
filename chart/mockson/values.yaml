@@ -9,7 +9,7 @@ service:
   name: broker
 
 deployment:
-  replicas: 2
+  replicas: 1
 
   broker:
     image: erlio/docker-vernemq:1.2.0
@@ -63,6 +63,7 @@ deployment:
         memory: 100Mi
 
   seed:
+    # THIS SHOULD ONLY BE ENABLED IF USING 1 REPLICA!!
     enabled: false
     image: eu.gcr.io/overlock-192311/mockson-seed:0.2.0
 
