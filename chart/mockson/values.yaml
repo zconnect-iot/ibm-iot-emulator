@@ -1,7 +1,7 @@
 ---
 STUPID_NO_TLS: true
 ingress:
-  host_backend: mqtt.zoetrope.local
+  host_backend: testbroker.olapi.io
   paths:
     - /mqtt
 
