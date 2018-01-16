@@ -43,9 +43,9 @@ deployment:
     #   vmq_webhooks.on_client_gone.endpoint = http://solitary-dingo-webhooks:5000/on_client_gone
 
   webhooks:
-    image: 871947736413.dkr.ecr.eu-west-2.amazonaws.com/mockson-webhooks:0.2.0
+    image: eu.gcr.io/overlock-192311/mockson-webhooks:0.2.0
   seed:
-    image: 871947736413.dkr.ecr.eu-west-2.amazonaws.com/mockson-seed:0.1.2
+    image: eu.gcr.io/overlock-192311/mockson-seed:0.2.0
 
 
 # ConfigMap - each value is set as an environment variable in every container
