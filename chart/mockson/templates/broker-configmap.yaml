@@ -18,11 +18,11 @@ data:
     plugins.vmq_acl = off
 
     # Use mongodb for auth
-    plugins.vmq_diversity = on
-    vmq_diversity.auth_mongodb.enabled = on
-    vmq_diversity.mongodb.host = {{ .Release.Name }}-mongodb
-    vmq_diversity.mongodb.port = 27017
-    vmq_diversity.mongodb.database = vernemq
+    plugins.vmq_diversity = off
+    # vmq_diversity.auth_mongodb.enabled = on
+    # vmq_diversity.mongodb.host = {{ .Release.Name }}-mongodb
+    # vmq_diversity.mongodb.port = 27017
+    # vmq_diversity.mongodb.database = vernemq
 
     log.console.level = debug
 
@@ -30,10 +30,12 @@ data:
     plugins.vmq_webhooks = on
 
     # the hooks
+    vmq_webhooks.auth_on_register.hook = auth_on_register
     vmq_webhooks.on_register.hook = on_register
     vmq_webhooks.on_client_gone.hook = on_client_gone
     vmq_webhooks.on_client_offline.hook = on_client_offline
 
+    vmq_webhooks.auth_on_register.endpoint = http://{{ .Release.Name }}-webhooks:5000/auth_on_register
     vmq_webhooks.on_register.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_register
     vmq_webhooks.on_client_offline.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_offline
     vmq_webhooks.on_client_gone.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_gone

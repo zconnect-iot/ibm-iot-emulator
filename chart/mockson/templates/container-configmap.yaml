@@ -9,6 +9,7 @@ metadata:
     release: {{ .Release.Name }}
   name: {{ .Release.Name }}-{{ .Values.global_config.name }}
 data:
+  MONGO_HOST: {{ .Release.Name }}-mongodb
  {{- range $key, $value := .Values.global_config.data }}
   {{ $key }}: {{ $value | quote }}
  {{- end }}
