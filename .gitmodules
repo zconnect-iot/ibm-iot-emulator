@@ -1,0 +1,3 @@
+[submodule "overlock-mqtt-auth"]
+	path = overlock-mqtt-auth
+	url = git@code.zoetrope.io:overlock/overlock-mqtt-auth.git

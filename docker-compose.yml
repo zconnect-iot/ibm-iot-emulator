@@ -1,37 +1,46 @@
+---
 version: '2.0'
+
 services:
-        vernemq:
-                image: erlio/docker-vernemq
-                volumes:
-                        - "./docker-vernemq/vernemq.conf:/etc/vernemq/vernemq.conf"
-                env_file:
-                        - "./docker-vernemq/vmq.vars"
-                ports:
-                        - "1883:1883"
-                depends_on:
-                        - mongo
-                        - mongo-setup
-        mongo:
-                image: mongo:latest
-                volumes:
-                        - mongo_data:/data/db
-                ports:
-                        - "27017:27017"
-        mongo-setup:
-                build: ./seed-mongo
-                depends_on:
-                        - mongo
-                environment:
-                        - MONGO_HOST=mongo
-        hooks:
-                build: ./app
-                depends_on:
-                        - vernemq
-                ports:
-                        - "5000:5000"
-                environment:
-                        - MQTT_HOST=vernemq
-                        - MQTT_PORT=1883
-                        - HOOK_PORT=5000
+
+  vernemq:
+    image: erlio/docker-vernemq
+    # volumes:
+    #   - "./vernemq/files/config/vernemq.conf:/etc/vernemq/vernemq.conf"
+    # env_file:
+    #   - "./vernemq/files/config/vm.args"
+    volumes:
+      - "./vernemq/files/config/:/etc/vernemq/"
+    ports:
+      - "1883:1883"
+    depends_on:
+      - mongodb
+      - mongo-setup
+
+  mongodb:
+    image: mongo:latest
+    # volumes:
+    #   - mongo_data:/data/db
+    # ports:
+    #   - "27017:27017"
+
+  mongo-setup:
+    build: ./seed-mongo
+    depends_on:
+      - mongodb
+
+  hooks:
+    build:
+      context: ./overlock-mqtt-auth
+      dockerfile: Dockerfile.vernemq
+    depends_on:
+      - vernemq
+    ports:
+      - "5000:5000"
+    environment:
+      - MQTT_HOST=vernemq
+      - MQTT_PORT=1883
+      - HOOK_PORT=5000
+
 volumes:
-        mongo_data:
+  mongo_data:
