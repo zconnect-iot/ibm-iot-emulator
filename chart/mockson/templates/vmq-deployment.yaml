@@ -12,7 +12,6 @@ spec:
   selector:
     matchLabels:
       app: {{ template "name" . }}-vernemq
-      chart: {{ .Chart.Name }}-{{ .Chart.Version }}
       heritage: {{ .Release.Service }}
       release: {{ .Release.Name }}
   template:
