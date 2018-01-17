@@ -41,19 +41,8 @@ Run tests:
     before_script:
         - cd overlock-mqtt-auth/
         - pip install .[vernemq] pylint
-        - pip install pylint pytest
     script:
-        - >
-            pylint
-            modules/zc-novo-gateway/zcnovogateway
-            modules/zc-novo-ir/novoir
-            modules/zconnect-base/zconnectbase
-            modules/zconnect-core/zconnectcore
-            modules/zc-weather/zcweather
-            modules/zc-zones/zczones
-            modules/zc-novo-trv/novotrv
-            modules/zc-novo-algo-ac-control/novoalgoircontrol
-            novozcapp
+        - pylint overlockmqttauth
 
 
 Build webhooks container:
