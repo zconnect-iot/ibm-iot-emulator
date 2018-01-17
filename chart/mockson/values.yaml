@@ -22,34 +22,11 @@ deployment:
         cpu: 25m
         memory: 400Mi
 
-    # FIXME
-    # Moved to configmap - requires knowing the deployment name
-    # config: |
-    #   listener.ws.default = 127.0.0.1:8080
-
-    #   # Turn off password auth
-    #   plugins.vmq_passwd = off
-    #   plugins.vmq_acl = off
-
-    #   # Enable webhooks
-    #   plugins.vmq_webhooks = on
-
-    #   # Use mongodb for auth
-    #   vmq_diversity.auth_mongodb.enabled = on
-    #   vmq_diversity.mongodb.host = solitary-dingo-mongodb
-    #   vmq_diversity.mongodb.port = 27017
-    #   vmq_diversity.mongodb.database = vernemq
-
-    #   log.console.level = debug
-
-    #   # the hooks
-    #   vmq_webhooks.on_register.hook = on_register
-    #   vmq_webhooks.on_client_gone.hook = on_client_gone
-    #   vmq_webhooks.on_client_offline.hook = on_client_offline
-
-    #   vmq_webhooks.on_register.endpoint = http://solitary-dingo-webhooks:5000/on_register
-    #   vmq_webhooks.on_client_offline.endpoint = http://solitary-dingo-webhooks:5000/on_client_offline
-    #   vmq_webhooks.on_client_gone.endpoint = http://solitary-dingo-webhooks:5000/on_client_gone
+    extra_config:
+      # Shared values for clusters
+      # This is set to the name of the release if not set here
+      ## IMPORTANT!!! SET the cookie to a private value! DO NOT LEAVE AT DEFAULT!
+      # distributed_cookie:
 
   webhooks:
     image: eu.gcr.io/overlock-192311/mockson-webhooks:0.3.3
