@@ -16,6 +16,9 @@ spec:
   - port: 1883
     targetPort: 1883
     name: mqtt
+  - port: 5000
+    targetPort: 5000
+    name: webhooks
   selector:
     app: {{ template "name" . }}-vernemq
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}

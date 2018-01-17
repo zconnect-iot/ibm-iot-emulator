@@ -51,6 +51,11 @@ spec:
 
       - name: {{ template "name" . }}-webhooks
         image: {{ .Values.deployment.webhooks.image }}
+
+        ports:
+        - containerPort: 5000
+          name: webhooks
+
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-{{ .Values.global_config.name }}

@@ -35,10 +35,10 @@ data:
     vmq_webhooks.on_client_gone.hook = on_client_gone
     vmq_webhooks.on_client_offline.hook = on_client_offline
 
-    vmq_webhooks.auth_on_register.endpoint = http://{{ .Release.Name }}-webhooks:5000/auth_on_register
-    vmq_webhooks.on_register.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_register
-    vmq_webhooks.on_client_offline.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_offline
-    vmq_webhooks.on_client_gone.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_gone
+    vmq_webhooks.auth_on_register.endpoint = http://{{ template "fullname" . }}-vernemq:5000/auth_on_register
+    vmq_webhooks.on_register.endpoint = http://{{ template "fullname" . }}-vernemq:5000/on_register
+    vmq_webhooks.on_client_offline.endpoint = http://{{ template "fullname" . }}-vernemq:5000/on_client_offline
+    vmq_webhooks.on_client_gone.endpoint = http://{{ template "fullname" . }}-vernemq:5000/on_client_gone
 
     distributed_cookie = {{ .Values.deployment.broker.extra_config.distributed_cookie | default .Release.Name }}
 
