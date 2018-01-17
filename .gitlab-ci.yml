@@ -56,6 +56,7 @@ Build webhooks container:
         IMAGE_NAME: ${GCR_REGISTRY_PREFIX}/${GCLOUD_PROJECT_NAME}/mockson-webhooks:${CI_COMMIT_TAG}
 
     before_script:
+        - apk update && apk --no-cache add python
         - curl -SL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${GCLOUD_VER}-linux-x86_64.tar.gz | tar xz
         - echo $GCLOUD_CONTAINER_AUTH | base64 -d > /tmp/auth.json
         - export GCLOUDBIN=$(pwd)/google-cloud-sdk/bin/gcloud
