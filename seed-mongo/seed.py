@@ -44,7 +44,6 @@ def seed(host, username, password, rs, db, ssl, drop, collection):
     if ssl:
         base.append("--ssl")
 
-
     drop_cmd = [
         "mongo",
         "--host",
