@@ -33,7 +33,7 @@ variables:
 
 Run tests:
     # TODO
-    image: michaelboulton/python-package-build:3.5-jessie
+    image: michaelboulton/python-package-build:3.5-slim-jessie
     stage: tests
     tags:
         - kwak
