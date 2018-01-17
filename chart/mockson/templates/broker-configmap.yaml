@@ -40,7 +40,7 @@ data:
     vmq_webhooks.on_client_offline.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_offline
     vmq_webhooks.on_client_gone.endpoint = http://{{ .Release.Name }}-webhooks:5000/on_client_gone
 
-    distributed_cookie = {{ default .Release.Name .Values.extra_config.distributed_cookie }}
+    distributed_cookie = {{ .Values.deployment.broker.extra_config.distributed_cookie | default .Release.Name }}
 
   vmq.acl: |
     topic #
