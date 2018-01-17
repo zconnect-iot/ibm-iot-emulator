@@ -94,10 +94,13 @@ Deploy tagged version to integration:
         - sleep 10
         - helm list
     script:
+        - helm dependency build chart/mockson
+        - helm dependency update chart/mockson
         - >
             helm upgrade
             --namespace $KUBE_NAMESPACE
             $(helm list | grep mockson | awk '{print $1}')
             chart/mockson
+
     only:
         - tags
