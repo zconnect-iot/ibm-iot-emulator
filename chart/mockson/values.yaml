@@ -68,14 +68,14 @@ global_config:
     MONGO_SSL: true
 
 
-mongodb:
-  persistence:
-    enabled: false
-
-  resources:
-    limits:
-      cpu: 100m
-      memory: 500Mi
-    requests:
-      cpu: 100m
-      memory: 256Mi
+# mongodb:
+#   persistence:
+#     enabled: false
+#
+#   resources:
+#     limits:
+#       cpu: 100m
+#       memory: 500Mi
+#     requests:
+#       cpu: 100m
+#       memory: 256Mi
