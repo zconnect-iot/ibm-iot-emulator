@@ -52,7 +52,7 @@ deployment:
     #   vmq_webhooks.on_client_gone.endpoint = http://solitary-dingo-webhooks:5000/on_client_gone
 
   webhooks:
-    image: eu.gcr.io/overlock-192311/mockson-webhooks:0.2.0
+    image: eu.gcr.io/overlock-192311/mockson-webhooks:0.3.0
 
     resources:
       limits:
@@ -65,7 +65,7 @@ deployment:
   seed:
     # THIS SHOULD ONLY BE ENABLED IF USING 1 REPLICA!!
     enabled: false
-    image: eu.gcr.io/overlock-192311/mockson-seed:0.2.0
+    image: eu.gcr.io/overlock-192311/mockson-seed:0.3.0
 
 
 # ConfigMap - each value is set as an environment variable in every container
