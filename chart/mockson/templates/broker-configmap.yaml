@@ -31,11 +31,15 @@ data:
 
     # the hooks
     vmq_webhooks.auth_on_register.hook = auth_on_register
+    vmq_webhooks.auth_on_publish.hook = auth_on_publish
+    vmq_webhooks.auth_on_subscribe.hook = auth_on_subscribe
     vmq_webhooks.on_register.hook = on_register
     vmq_webhooks.on_client_gone.hook = on_client_gone
     vmq_webhooks.on_client_offline.hook = on_client_offline
 
     vmq_webhooks.auth_on_register.endpoint = http://{{ template "fullname" . }}-vernemq:5000/auth_on_register
+    vmq_webhooks.auth_on_publish.endpoint = http://{{ template "fullname" . }}-vernemq:5000/auth_on_publish
+    vmq_webhooks.auth_on_subscribe.endpoint = http://{{ template "fullname" . }}-vernemq:5000/auth_on_subscribe
     vmq_webhooks.on_register.endpoint = http://{{ template "fullname" . }}-vernemq:5000/on_register
     vmq_webhooks.on_client_offline.endpoint = http://{{ template "fullname" . }}-vernemq:5000/on_client_offline
     vmq_webhooks.on_client_gone.endpoint = http://{{ template "fullname" . }}-vernemq:5000/on_client_gone
