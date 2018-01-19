@@ -25,8 +25,12 @@ services:
     #   - "27017:27017"
 
   mongo-setup:
-    build: ./seed-mongo
+    build:  # ./seed-mongo
+      context: ./seed-mongo
+      dockerfile: Dockerfile
     depends_on:
+      - mongodb
+    links:
       - mongodb
 
   hooks:

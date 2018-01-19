@@ -33,7 +33,10 @@ def wrapout(cmds):
 @click.option("--collection")
 def seed(host, username, password, rs, datafile, db, ssl, drop, collection):
 
-    base = []
+    base = [
+        "--port",
+        "27017",
+    ]
 
     if username and password:
         base.extend([
@@ -58,7 +61,7 @@ def seed(host, username, password, rs, datafile, db, ssl, drop, collection):
         "mongo",
         "--host",
         drop_host,
-        *base,
+        ] + base + [
         "--eval",
         'acl_db = db.getSiblingDB("{0}"); acl_db.{1}.drop();'.format(db, collection),
     ]
@@ -67,7 +70,7 @@ def seed(host, username, password, rs, datafile, db, ssl, drop, collection):
         "mongoimport",
         "--host",
         import_host,
-        *base,
+        ] + base + [
         "--collection",
         collection,
         "--db",
