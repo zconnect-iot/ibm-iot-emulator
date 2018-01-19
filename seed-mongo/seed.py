@@ -30,8 +30,9 @@ def wrapout(cmds):
 @click.option("--datafile")
 @click.option("--ssl", default=True, type=bool)
 @click.option("--drop", default=False, type=bool)
+@click.option("--with-host-prefix", default=False, type=bool)
 @click.option("--collection")
-def seed(host, username, password, rs, datafile, db, ssl, drop, collection):
+def seed(host, username, password, with_host_prefix, rs, datafile, db, ssl, drop, collection):
 
     base = [
         "--port",
@@ -52,10 +53,13 @@ def seed(host, username, password, rs, datafile, db, ssl, drop, collection):
         base.append("--ssl")
 
     if rs:
-        drop_host = "mongodb://{}?replicaSet={}".format(host, rs)
+        drop_host = "{}?replicaSet={}".format(host, rs)
         import_host = "{}/{}".format(rs, host)
     else:
-        import_host = drop_host = "mongodb://{}".format(host)
+        import_host = drop_host = "{}".format(host)
+
+    if with_host_prefix:
+        drop_host = "mongodb://" + drop_host
 
     drop_cmd = [
         "mongo",
