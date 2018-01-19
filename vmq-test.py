@@ -7,9 +7,10 @@ import paho.mqtt.client as mqtt
 @click.option("--port", default=80)
 @click.option("--user", default="use-token-auth")
 @click.option("--pw", default="-ankVuPqceD(LBd0Zc")
-@click.option("--sub", default="$SYS/#")
+@click.option("--sub", default=None)
+@click.option("--pub", default="$SYS/#")
 @click.option("--client_id", default="g:veejb5:novo-gateway:576127cb94149d536f8e6a93")
-def run(host, port, user, pw, sub, client_id):
+def run(host, port, user, pw, pub, sub, client_id):
     # The callback for when the client receives a CONNACK response from the server.
     def on_connect(client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
@@ -18,6 +19,12 @@ def run(host, port, user, pw, sub, client_id):
         # reconnect then subscriptions will be renewed.
         print("Subscribing to {}".format(sub))
         client.subscribe(sub)
+
+        if pub:
+            client.publish(
+                pub,
+                "Hello",
+            )
 
     # The callback for when a PUBLISH message is received from the server.
     def on_message(client, userdata, msg):
