@@ -27,7 +27,7 @@ def run(host, port, user, pw, sub, client_id):
     client.on_connect = on_connect
     client.on_message = on_message
 
-    client.username_pw_set("use-token-auth", pw)
+    client.username_pw_set(user, pw)
 
     print(host)
 
