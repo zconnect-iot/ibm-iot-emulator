@@ -3,13 +3,13 @@ import paho.mqtt.client as mqtt
 
 
 @click.command()
-@click.option("--host", required=True)
-@click.option("--port", default=80)
-@click.option("--user", default="use-token-auth")
-@click.option("--pw", default="-ankVuPqceD(LBd0Zc")
-@click.option("--sub", default=None)
-@click.option("--pub", default="$SYS/#")
-@click.option("--client_id", default="g:veejb5:novo-gateway:576127cb94149d536f8e6a93")
+@click.option("--host", default="localhost")
+@click.option("--port", default=8080)
+@click.option("--user", default="v1:CoolProject:aircon:0xbeef")
+@click.option("--pw", default="p:fada60ac-f686-46db-9234-1a140753c932")
+@click.option("--sub", default="/iot-2/type/gateway/id/v1:pid123:aircon:0xbeef/cmd/boom/fmt/json")
+@click.option("--pub", default="/iot-2/type/gateway/id/v1:pid123:aircon:0xbeef/evt/boom/fmt/json")
+@click.option("--client_id", default="overlocktestclient")
 def run(host, port, user, pw, pub, sub, client_id):
     # The callback for when the client receives a CONNACK response from the server.
     def on_connect(client, userdata, flags, rc):
