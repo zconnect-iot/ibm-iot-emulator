@@ -1,9 +1,9 @@
-FROM mongo:3.6
+FROM mongo:3.6-jessie
 
-COPY acl.json /acl.json
-ENV MONGO_HOST=mongodb://mongodb
-CMD sleep 5 \
-	&& mongo --host $MONGO_HOST \
-	--eval 'db = db.getSiblingDB("vernemq"); db.vmq_acl_auth.drop();' \
-	&& mongoimport --host $MONGO_HOST --collection vmq_acl_auth --db vernemq \
-	--type json --file /acl.json --jsonArray
+RUN apk update && apk add python3
+
+RUN pip3 install click bcrypt
+
+COPY seed_projects.sh .
+
+CMD seed_projects.sh
