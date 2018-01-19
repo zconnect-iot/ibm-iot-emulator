@@ -37,7 +37,7 @@ def run(host, port, user, pw, sub, client_id):
     # handles reconnecting.
     # Other loop*() functions are available that give a threaded interface and a
     # manual interface.
-    # client.loop_forever()
+    client.loop_forever()
 
 
 if __name__ == "__main__":
