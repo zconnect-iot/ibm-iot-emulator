@@ -1,7 +1,7 @@
 apiVersion: v1
 description: Mock of IBM watson IoT server
 name: mockson
-version: 0.3.13
+version: 0.3.14
 keywords:
   - mqtt
 maintainers:
