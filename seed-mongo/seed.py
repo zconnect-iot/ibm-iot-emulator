@@ -30,7 +30,7 @@ def wrapout(cmds):
 @click.option("--datafile")
 @click.option("--ssl", default=True, type=bool)
 @click.option("--drop", default=False, type=bool)
-@click.option("--collection", default="mqtt_user")
+@click.option("--collection")
 def seed(host, username, password, rs, datafile, db, ssl, drop, collection):
 
     base = [
