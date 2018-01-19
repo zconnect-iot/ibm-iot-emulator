@@ -1,8 +1,6 @@
-FROM mongo:3.6-jessie
+FROM mongo:3.6
 
-RUN apk update && apk add python3
-
-RUN pip3 install click bcrypt
+ONBUILD COPY mqtt_user.json project.json .
 
 COPY seed_projects.sh .
 
