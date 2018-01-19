@@ -13,6 +13,7 @@ services:
       - "./vernemq/files/config/:/etc/vernemq/"
     ports:
       - "1883:1883"
+      - "8080:8080"
     depends_on:
       - mongodb
       - mongo-setup
