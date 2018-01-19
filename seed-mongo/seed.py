@@ -27,10 +27,11 @@ def wrapout(cmds):
 @click.option("--password")
 @click.option("--db")
 @click.option("--rs")
+@click.option("--datafile")
 @click.option("--ssl", default=True, type=bool)
 @click.option("--drop", default=False, type=bool)
 @click.option("--collection", default="mqtt_user")
-def seed(host, username, password, rs, db, ssl, drop, collection):
+def seed(host, username, password, rs, datafile, db, ssl, drop, collection):
 
     base = [
         "--username",
@@ -65,7 +66,7 @@ def seed(host, username, password, rs, db, ssl, drop, collection):
         "--type",
         "json",
         "--file",
-        "./acl.json",
+        datafile,
         "--jsonArray",
     ]
 
