@@ -66,6 +66,8 @@ global_config:
     MONGO_PASSWORD: z0JZw67N0XJSrJZ1
     MONGO_SSL: true
 
+    OVERLOCK_WORKER_PASSWORD: tae7Ielonguafaf1aS7a
+
 
 # mongodb:
 #   persistence:
