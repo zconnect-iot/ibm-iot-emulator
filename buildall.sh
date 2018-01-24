@@ -2,7 +2,8 @@
 
 set -ex
 
-TAG=0.1.2
+TAG=0.3.20
+# BASEREPO=871947736413.dkr.ecr.eu-west-2.amazonaws.com/
 BASEREPO=871947736413.dkr.ecr.eu-west-2.amazonaws.com/
 
 cd seed-mongo
