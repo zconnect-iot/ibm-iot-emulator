@@ -24,7 +24,8 @@ data:
     # vmq_diversity.mongodb.port = 27017
     # vmq_diversity.mongodb.database = vernemq
 
-    log.console.level = debug
+    # log.console.level = debug
+    log.console.level = info
 
     # Enable webhooks
     plugins.vmq_webhooks = on
