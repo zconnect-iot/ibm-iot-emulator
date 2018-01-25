@@ -36,7 +36,7 @@ deployment:
         cpu: 100m
         memory: 200Mi
       requests:
-        cpu: 25m
+        cpu: 15m
         memory: 100Mi
 
   seed:
