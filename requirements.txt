@@ -1,1 +1,3 @@
-paho-mqtt==1.3.0
+paho-mqtt
+click
+-e git://github.com/ZoetropeLabs/iot-python.git@1eaf5fa8b7b7cb43b7e9afd38bce8a1be3f95d5c#egg=ibmiotf
