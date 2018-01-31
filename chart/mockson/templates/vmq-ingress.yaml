@@ -32,7 +32,3 @@ spec:
             serviceName: {{ $fullName }}-vernemq
             servicePort: 80
       {{- end }}
-        - path: /
-          backend:
-            serviceName: {{ $fullName }}-vernemq
-            servicePort: 1883
