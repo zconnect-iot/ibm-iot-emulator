@@ -1,5 +1,5 @@
 ---
-STUPID_NO_TLS: true
+STUPID_NO_TLS: False
 ingress:
   host_backend: testbroker.olapi.io
   paths:

@@ -31,6 +31,7 @@ def with_paho(host, port, user, pw, pub, sub, client_id, transport):
     client.on_message = on_message
 
     client.username_pw_set(user, pw)
+    client.tls_set()
 
     print(host)
 
@@ -53,7 +54,7 @@ def with_ibm(host, port, user, pw, pub, sub, client_id, transport):
         "full_client_id": client_id,
         "use-websockets": transport == "websockets",
         # FIXME
-        "tls-version": "PROTOCOL_TLSv1_0",
+        "tls-version": "PROTOCOL_TLSv1_2",
     }
 
     Client(options).connect()
