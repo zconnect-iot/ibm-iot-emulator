@@ -52,6 +52,8 @@ def with_ibm(host, port, user, pw, pub, sub, client_id, transport):
         "auth-token": pw,
         "full_client_id": client_id,
         "use-websockets": transport == "websockets",
+        # FIXME
+        "tls-version": "PROTOCOL_TLSv1_0",
     }
 
     Client(options).connect()
