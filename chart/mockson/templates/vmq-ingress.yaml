@@ -18,7 +18,7 @@ spec:
   {{ if not .Values.STUPID_NO_TLS }}
   - hosts:
     - {{ $hostBackend }}
-    secretName: {{ template "fullname" . }}-tls
+    secretName: {{ template "fullname" . }}-real-tls
   {{ end }}
   rules:
     - host: {{ $hostBackend }}
