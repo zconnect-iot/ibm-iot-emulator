@@ -17,10 +17,10 @@ deployment:
     resources:
       limits:
         cpu: 100m
-        memory: 400Mi
+        memory: 500Mi
       requests:
         cpu: 25m
-        memory: 400Mi
+        memory: 200Mi
 
     extra_config:
       # Shared values for clusters
