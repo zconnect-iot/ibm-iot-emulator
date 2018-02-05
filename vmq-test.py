@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import logging
+import ssl
 from ibmiotf.application import Client
 import click
 import paho.mqtt.client as mqtt
@@ -31,7 +32,7 @@ def with_paho(host, port, user, pw, pub, sub, client_id, transport):
     client.on_message = on_message
 
     client.username_pw_set(user, pw)
-    client.tls_set()
+    client.tls_set(tls_version=ssl.PROTOCOL_TLSv1_2)
 
     print(host)
 
@@ -53,7 +54,6 @@ def with_ibm(host, port, user, pw, pub, sub, client_id, transport):
         "auth-token": pw,
         "full_client_id": client_id,
         "use-websockets": transport == "websockets",
-        # FIXME
         "tls-version": "PROTOCOL_TLSv1_2",
     }
 
