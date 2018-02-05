@@ -29,7 +29,7 @@ deployment:
       distributed_cookie:
 
   webhooks:
-    image: eu.gcr.io/overlock-192311/mockson-webhooks:0.4.0
+    image: eu.gcr.io/overlock-192311/mockson-webhooks:0.4.1
 
     resources:
       limits:
@@ -42,7 +42,7 @@ deployment:
   seed:
     # THIS SHOULD ONLY BE ENABLED IF USING 1 REPLICA!!
     enabled: false
-    image: eu.gcr.io/overlock-192311/mockson-seed:0.4.0
+    image: eu.gcr.io/overlock-192311/mockson-seed:0.4.1
 
 
 # ConfigMap - each value is set as an environment variable in every container
