@@ -11,23 +11,6 @@ service:
 deployment:
   replicas: 1
 
-  broker:
-    image: erlio/docker-vernemq:1.2.0
-
-    resources:
-      limits:
-        cpu: 100m
-        memory: 500Mi
-      requests:
-        cpu: 25m
-        memory: 200Mi
-
-    extra_config:
-      # Shared values for clusters
-      # This is set to the name of the release if not set here
-      ## IMPORTANT!!! set to a random value, not 'vmq' or something like that
-      distributed_cookie:
-
   webhooks:
     image: eu.gcr.io/overlock-192311/mockson-webhooks:0.4.1
 
@@ -43,6 +26,33 @@ deployment:
     # THIS SHOULD ONLY BE ENABLED IF USING 1 REPLICA!!
     enabled: false
     image: eu.gcr.io/overlock-192311/mockson-seed:0.4.1
+
+
+rabbitmq-ha:
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 500Mi
+    requests:
+      cpu: 15m
+      memory: 100Mi
+  rabbitmqMemoryHighWatermark: 300MB
+
+  replicaCount: 1
+
+
+  ## You might see 20-50% better performance at the cost
+  ## of a few minutes delay at startup.
+  rabbitmqHipeCompile: false
+
+  persistentVolume:
+    # disabled by default
+    enabled: false
+
+  rbac:
+    create: true
+    serviceAccountName: rabbitmq
 
 
 # ConfigMap - each value is set as an environment variable in every container
