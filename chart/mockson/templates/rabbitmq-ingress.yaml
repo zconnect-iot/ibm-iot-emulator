@@ -24,11 +24,7 @@ spec:
     - host: {{ $hostBackend }}
       http:
         paths:
-      {{ $releaseName := .Release.Name }}
-      {{ $fullName := include "fullname" . }}
-      {{- range .Values.ingress.paths }}
-        - path: {{ . }}
+        - path: /mqtt
           backend:
-            serviceName: {{ $fullName }}-rabbitmq-ha
-            servicePort: 80
-      {{- end }}
+            serviceName: {{ .Release.Name }}-rabbitmq-ha
+            servicePort: {{ .Values.rabbitmq-ha.rabbitmqNodePort }}
