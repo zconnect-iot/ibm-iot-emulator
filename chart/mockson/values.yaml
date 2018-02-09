@@ -41,7 +41,6 @@ rabbitmq-ha:
 
   replicaCount: 1
 
-
   ## You might see 20-50% better performance at the cost
   ## of a few minutes delay at startup.
   rabbitmqHipeCompile: false

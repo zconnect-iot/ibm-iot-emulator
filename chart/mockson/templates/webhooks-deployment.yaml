@@ -44,5 +44,3 @@ spec:
       - name: config-volume
         configMap:
           name: {{ .Release.Name }}-broker-config
-      - name: varlog
-        emptyDir: {}
