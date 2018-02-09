@@ -28,4 +28,3 @@ spec:
           backend:
             serviceName: {{ .Release.Name }}-rabbitmq-ha
             servicePort: 5672
-            # servicePort: {{ .Values.rabbitmq-ha.rabbitmqNodePort }}
