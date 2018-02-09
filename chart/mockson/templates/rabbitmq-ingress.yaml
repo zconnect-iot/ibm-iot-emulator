@@ -27,4 +27,5 @@ spec:
         - path: /mqtt
           backend:
             serviceName: {{ .Release.Name }}-rabbitmq-ha
-            servicePort: {{ .Values.rabbitmq-ha.rabbitmqNodePort }}
+            servicePort: 5672
+            # servicePort: {{ .Values.rabbitmq-ha.rabbitmqNodePort }}
