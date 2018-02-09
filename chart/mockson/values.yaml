@@ -12,7 +12,7 @@ deployment:
   replicas: 1
 
   webhooks:
-    image: eu.gcr.io/overlock-192311/mockson-webhooks:0.4.1
+    image: eu.gcr.io/overlock-192311/mockson-webhooks:1.0.0
 
     resources:
       limits:
@@ -25,7 +25,7 @@ deployment:
   seed:
     # THIS SHOULD ONLY BE ENABLED IF USING 1 REPLICA!!
     enabled: false
-    image: eu.gcr.io/overlock-192311/mockson-seed:0.4.1
+    image: eu.gcr.io/overlock-192311/mockson-seed:1.0.0
 
 
 rabbitmq-ha:

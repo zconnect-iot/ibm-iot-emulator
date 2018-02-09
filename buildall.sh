@@ -2,7 +2,7 @@
 
 set -ex
 
-TAG=0.4.1
+TAG=1.0.0
 # BASEREPO=871947736413.dkr.ecr.eu-west-2.amazonaws.com/
 BASEREPO=871947736413.dkr.ecr.eu-west-2.amazonaws.com/
 
