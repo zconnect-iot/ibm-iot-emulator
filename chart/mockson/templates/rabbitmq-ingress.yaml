@@ -29,6 +29,6 @@ spec:
       {{- range .Values.ingress.paths }}
         - path: {{ . }}
           backend:
-            serviceName: {{ $fullName }}-vernemq
+            serviceName: {{ $fullName }}-rabbitmq-ha
             servicePort: 80
       {{- end }}

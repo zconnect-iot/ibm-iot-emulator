@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}-webhooks
+  labels:
+    app: {{ template "name" . }}-webhooks
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}-webhooks
+      heritage: {{ .Release.Service }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}-webhooks
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        heritage: {{ .Release.Service }}
+        release: {{ .Release.Name }}
+      annotations:
+        checksum/config: {{ print .Values.global_config | sha256sum }}
+        checksum/all: {{ print .Values.deployment | sha256sum }}
+    spec:
+      containers:
+      - name: {{ template "name" . }}-webhooks
+        image: {{ .Values.deployment.webhooks.image }}
+
+        ports:
+        - containerPort: 5000
+          name: webhooks
+
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-{{ .Values.global_config.name }}
+
+        resources:
+{{ toYaml .Values.deployment.webhooks.resources | indent 10 }}
+
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Release.Name }}-broker-config
+      - name: varlog
+        emptyDir: {}
