@@ -53,6 +53,10 @@ rabbitmq-ha:
     create: true
     serviceAccountName: rabbitmq
 
+  # want to use our own config to enable websockets etc.
+  customConfigMap: true
+
+  rabbitmqPassword: anfdouijsofi
 
 # ConfigMap - each value is set as an environment variable in every container
 global_config:
