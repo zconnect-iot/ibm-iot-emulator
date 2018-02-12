@@ -31,7 +31,7 @@ data:
     ## Memory-based Flow Control threshold
     vm_memory_high_watermark.absolute = {{ index .Values "rabbitmq-ha" "rabbitmqMemoryHighWatermark" }}
 
-    listeners.tcp.default = 5672
+    listeners.tcp.default = none
     # documentation for this is pretty terrible...
     web_mqtt.port = 5672
 
