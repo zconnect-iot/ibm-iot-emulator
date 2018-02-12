@@ -35,7 +35,7 @@ data:
     # documentation for this is pretty terrible...
     web_mqtt.port = 5672
 
-    mqtt.default_user     = guest
+    mqtt.default_user     = cool-person
   {{ if index .Values "rabbitmq-ha" "rabbitmqPassword" }}
     rabbitmq-password: {{ index .Values "rabbitmq-ha" "rabbitmqPassword" | b64enc | quote }}
   {{ else }}
