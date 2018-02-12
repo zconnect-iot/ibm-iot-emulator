@@ -24,7 +24,7 @@ spec:
     - host: {{ $hostBackend }}
       http:
         paths:
-        - path: /amqp
+        - path: /mqtt
           backend:
             serviceName: {{ .Release.Name }}-rabbitmq-ha
             servicePort: 5672
