@@ -19,3 +19,5 @@
 .project
 .idea/
 *.tmproj
+templates/webhooks/gen_config
+templates/webhooks/input.yaml
