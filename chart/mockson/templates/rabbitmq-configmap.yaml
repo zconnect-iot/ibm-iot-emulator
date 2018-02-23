@@ -8,11 +8,6 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  {{ range $path, $contents := .Files.Glob "webhooks/*" }}
-  {{ $path }}: |
-    {{ $contents }}
-  {{ end }}
-
   # https://www.rabbitmq.com/mqtt.html#config
   enabled_plugins: |
     [rabbitmq_consistent_hash_exchange,rabbitmq_federation,rabbitmq_federation_management,rabbitmq_management,rabbitmq_web_mqtt,rabbitmq_peer_discovery_k8s,rabbitmq_shovel,rabbitmq_shovel_management].
