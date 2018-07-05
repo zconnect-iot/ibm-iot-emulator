@@ -1,0 +1,43 @@
+FROM michaelboulton/python-package-build:3.5-alpine as builder
+
+# otherwise entry points don't work
+RUN pip3 install --upgrade pip setuptools
+
+# Speeds up cached building
+# RUN pip3 install --upgrade uwsgi cryptography
+
+WORKDIR /tmp/main
+COPY requirements.txt /tmp/main
+RUN pip install -r requirements.txt
+
+# Then install this actual package to expose entry points
+COPY MANIFEST.in setup.py setup.cfg /tmp/main/
+COPY zconnectmqttauth/ /tmp/main/zconnectmqttauth/
+RUN pip3 install .[vernemq] && rm -rf .eggs
+
+
+# build again, only use things that we need
+FROM python:3.5-alpine
+
+RUN apk add --no-cache --virtual .fetch-deps \
+  libffi \
+  openssl \
+  pcre \
+  && rm -rf /var/cache/apk/*
+
+COPY --from=builder /usr/local/ /usr/local/
+
+ENV MONGO_HOST=mongodb
+ENV MONGO_DATABASE=vmq_acl
+
+# turns out you can't have black env vars in dockerfiles
+# ENV MONGO_USERNAME
+# ENV MONGO_PASSWORD
+ENV MONGO_APPNAME=vmq_hook
+
+ENV MONGO_PORT=27017
+ENV MONGO_SSL=false
+
+CMD ["vmq_hook"]
+
+# TAG vernemq_authhooks
